@@ -24,6 +24,7 @@ connection.connect(function (err) {
     start();
 });
 
+
 function start() {
     connection.query("SELECT * FROM products", function (err, res) {
         if (err) throw err;
@@ -39,6 +40,8 @@ function start() {
         purchaseItem();
     });
 }
+//The app should then prompt users with two messages.
+//The first should ask them the ID of the product they would like to buy.
 
 function purchaseItem() {
     inquirer.prompt([{
@@ -46,6 +49,8 @@ function purchaseItem() {
                 message: "What is the ID of the item that you would like to purchase: ",
                 name: "itemID"
             },
+
+//The second message should ask how many units of the product they would like to buy. 
             {
                 type: "number",
                 message: "How many of the item that you would like to purchase: ",
@@ -58,6 +63,11 @@ function purchaseItem() {
             console.log(IdReq)
             makePurchase(IdReq, quantityReq);
         });
+
+//Once the customer has placed the order, your application should check if your store has enough of the product to meet the customer's request.
+//if your store _does_ have enough of the product, you should fulfill the customer's order.
+//This means updating the SQL database to reflect the remaining quantity.
+//Once the update goes through, show the customer the total cost of their purchase.
 };
 
 function makePurchase(wantedId, wantedQuan) {
